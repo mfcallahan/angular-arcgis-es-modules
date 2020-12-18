@@ -1,10 +1,12 @@
 import { ElementRef, Injectable, NgZone } from '@angular/core';
 import { IMapPoint } from 'src/app/interfaces/iMapPoint';
 import { EnvironmentService } from './environment.service';
+import config from '@arcgis/core/config.js';
 import Map from '@arcgis/core/Map';
 import MapView from '@arcgis/core/views/MapView';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
-import config from '@arcgis/core/config.js';
+import BasemapToggle from '@arcgis/core/widgets/BasemapToggle';
+import Zoom from '@arcgis/core/widgets/Zoom';
 
 @Injectable({
   providedIn: 'root',
@@ -43,7 +45,19 @@ export class MapService {
   }
 
   // Create instances of widgets and add them to the MapView
-  public addAllMapWidgets(): void {}
+  public addAllMapWidgets(): void {
+    const basemapToggle = new BasemapToggle({
+      view: this.mapView,
+      nextBasemap: this.environment.baseConfigs.defaultMapSettings.widgets.basemapToggle.nextBasemap,
+    });
+
+    const zoom = new Zoom({
+      view: this.mapView,
+    });
+
+    this.mapView?.ui.add(basemapToggle, this.environment.baseConfigs.defaultMapSettings.widgets.basemapToggle.position);
+    this.mapView?.ui.add(zoom, this.environment.baseConfigs.defaultMapSettings.widgets.zoom.position);
+  }
 
   public removeAllPoints(zoomToDefaultExtent: boolean): void {}
 

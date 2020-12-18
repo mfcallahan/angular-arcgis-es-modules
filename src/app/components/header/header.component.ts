@@ -15,7 +15,6 @@ export class HeaderComponent {
   constructor(readonly apiService: ApiService, readonly mapService: MapService) {}
 
   public async loadDataClick(): Promise<void> {
-    return;
     this.showSpinner = true;
     const numPointsToLoad = 100;
 
@@ -32,7 +31,6 @@ export class HeaderComponent {
   }
 
   public clearDataClick(): void {
-    return;
     this.mapService.removeAllPoints(true);
     this.dataLoaded = false;
   }
