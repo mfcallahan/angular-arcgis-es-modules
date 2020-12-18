@@ -16,9 +16,16 @@ module.exports = function (config) {
       clearContext: false // leave Jasmine Spec Runner output visible in browser
     },
     coverageIstanbulReporter: {
-      dir: require('path').join(__dirname, './coverage/ng-cli'),
+      dir: require('path').join(__dirname, './coverage/angular-arcgis-es-modules'),
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true
+    },
+    customLaunchers: {
+      Chrome_test_debug: {
+        base: 'Chrome',
+        flags: ['--remote-debugging-port=9222'],
+        debug: true
+      }
     },
     reporters: ['progress', 'kjhtml'],
     port: 9876,

@@ -1,0 +1,10 @@
+<mat-toolbar color="primary" fxLayout="row">
+  <span fxFlex fxLayoutAlign="start none">Angular CLI & Esri</span>
+  <div fxFlex fxLayoutAlign="end none" fxLayoutGap="20px">
+    <mat-spinner [diameter]="35" color="accent" mode="indeterminate" *ngIf="showSpinner"></mat-spinner>
+    <a href="#" mat-raised-button color="accent" (click)="loadDataClick()" [disabled]="showSpinner">Load Data</a>
+    <a href="#" mat-raised-button color="accent" (click)="clearDataClick()" [disabled]="!dataLoaded || showSpinner"
+      >Clear Data</a
+    >
+  </div>
+</mat-toolbar>
