@@ -1,6 +1,6 @@
 {
   "name": "angular-arcgis-es-modules",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "homepage": "/",
   "scripts": {
     "ng": "ng",
