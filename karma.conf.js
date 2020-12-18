@@ -20,6 +20,13 @@ module.exports = function (config) {
       reports: ['html', 'lcovonly', 'text-summary'],
       fixWebpackSourcePaths: true
     },
+    customLaunchers: {
+      Chrome_test_debug: {
+        base: 'Chrome',
+        flags: ['--remote-debugging-port=9222'],
+        debug: true
+      }
+    },
     reporters: ['progress', 'kjhtml'],
     port: 9876,
     colors: true,
