@@ -17,6 +17,7 @@ export class MapComponent implements AfterViewInit, OnDestroy {
     this.mapService.initDefaultMap(this.mapElementRef);
     this.mapService.addAllMapWidgets();
   }
+
   ngOnDestroy(): void {
     if (this.mapService.mapView) {
       this.mapService.mapView.destroy();

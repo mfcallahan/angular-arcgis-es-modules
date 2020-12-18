@@ -7,7 +7,7 @@ import MapView from '@arcgis/core/views/MapView';
 import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle';
 import Zoom from '@arcgis/core/widgets/Zoom';
-
+import Graphic from '@arcgis/core/Graphic';
 @Injectable({
   providedIn: 'root',
 })
@@ -59,9 +59,89 @@ export class MapService {
     this.mapView?.ui.add(zoom, this.environment.baseConfigs.defaultMapSettings.widgets.zoom.position);
   }
 
-  public removeAllPoints(zoomToDefaultExtent: boolean): void {}
+  public removeAllPoints(zoomToDefaultExtent: boolean): void {
+    this.map?.removeAll();
 
-  public async addPointsToMap(mapPoints: Array<IMapPoint>): Promise<void> {}
+    if (zoomToDefaultExtent) {
+      this.mapView?.goTo({
+        center: [
+          this.environment.baseConfigs.defaultMapSettings.centerLon,
+          this.environment.baseConfigs.defaultMapSettings.centerLat,
+        ],
+        zoom: this.environment.baseConfigs.defaultMapSettings.zoomLevel,
+      });
+    }
+  }
 
-  public async zoomToLayerExtent(layer: FeatureLayer): Promise<void> {}
+  public async addPointsToMap(mapPoints: Array<IMapPoint>): Promise<void> {
+    this.removeAllPoints(false);
+
+    const graphics = mapPoints.map((point, i) => {
+      return new Graphic({
+        attributes: {
+          ObjectId: i + 1,
+          location: point.location,
+        },
+        geometry: {
+          type: 'point',
+          longitude: point.lon,
+          latitude: point.lat,
+        },
+      } as any);
+      // TODO: Check error "Type is not assignable to type 'GeometryProperties'. Object literal may only specify known properties, and
+      // 'type' does not exist in type 'RendererProperties'."
+    });
+
+    const randomPointsLayer = new FeatureLayer({
+      source: graphics,
+      objectIdField: 'OBJECTID',
+      renderer: {
+        type: 'simple',
+        symbol: {
+          type: 'simple-marker',
+          color: '#ffff00',
+          size: '12px',
+          outline: {
+            color: '#0d0d0d',
+            width: 1.5,
+          },
+        },
+      } as any,
+      // TODO: Check error "Type is not assignable to type 'RendererProperties'. Object literal may only specify known properties, and
+      // 'type' does not exist in type 'RendererProperties'."
+      popupTemplate: {
+        title: 'Map points',
+        content: [
+          {
+            type: 'fields',
+            fieldInfos: [
+              {
+                fieldName: 'location',
+                label: 'Location',
+                visible: true,
+              },
+              {
+                fieldName: 'latitude',
+                label: 'Latitude',
+                visible: true,
+              },
+              {
+                fieldName: 'longitude',
+                label: 'longitude',
+                visible: true,
+              },
+            ],
+          },
+        ],
+      },
+    });
+
+    this.map?.layers.add(randomPointsLayer);
+
+    await this.zoomToLayerExtent(randomPointsLayer);
+  }
+
+  public async zoomToLayerExtent(layer: FeatureLayer): Promise<void> {
+    this.mapView?.goTo(await layer.queryExtent());
+  }
 }
