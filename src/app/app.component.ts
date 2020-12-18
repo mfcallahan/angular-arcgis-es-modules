@@ -1,17 +1,10 @@
-import {
-  Component,
-  OnInit,
-  ViewChild,
-  ElementRef,
-  OnDestroy,
-  NgZone
-} from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, OnDestroy, NgZone } from '@angular/core';
 
 import WebMap from '@arcgis/core/WebMap';
 import MapView from '@arcgis/core/views/MapView';
 import Bookmarks from '@arcgis/core/widgets/Bookmarks';
 import Expand from '@arcgis/core/widgets/Expand';
-import config from "@arcgis/core/config.js";
+import config from '@arcgis/core/config.js';
 
 @Component({
   selector: 'app-root',
@@ -22,14 +15,15 @@ export class AppComponent implements OnInit, OnDestroy {
   private view: any = null;
 
   // The <div> where we will place the map
-  @ViewChild('mapViewNode', { static: true }) private mapViewEl: ElementRef;
+  @ViewChild('mapViewNode', { static: true })
+  private mapViewEl?: ElementRef;
 
-  title = 'ng-cli';
+  title = 'angular-arcgis-es-modules';
 
-  constructor(private zone: NgZone) { }
+  constructor(private zone: NgZone) {}
 
   initializeMap(): Promise<any> {
-    const container = this.mapViewEl.nativeElement;
+    const container = this.mapViewEl?.nativeElement;
 
     const webmap = new WebMap({
       portalItem: {
@@ -39,7 +33,7 @@ export class AppComponent implements OnInit, OnDestroy {
 
     const view = new MapView({
       container,
-      map: webmap
+      map: webmap,
     });
 
     const bookmarks = new Bookmarks({
@@ -72,11 +66,10 @@ export class AppComponent implements OnInit, OnDestroy {
 
   // tslint:disable-next-line:use-lifecycle-interface
   ngOnInit(): any {
-
     // Set this property when using routes in order to resolve the /assets correctly.
     // IMPORTANT: the directory path may be different between your product app and your dev app
     // config.assetsPath = "/assets";
-    config.assetsPath = "assets/"
+    config.assetsPath = 'assets/';
 
     this.zone.runOutsideAngular(() => {
       // Initialize MapView and return an instance of MapView
@@ -84,9 +77,8 @@ export class AppComponent implements OnInit, OnDestroy {
         // The map has been initialized
         this.zone.run(() => {
           console.log('mapView ready: ');
-        })
+        });
       });
-
     });
   }
 

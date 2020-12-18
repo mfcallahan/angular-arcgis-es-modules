@@ -1,12 +1,11 @@
 {
-  "name": "ng-cli",
+  "name": "angular-arcgis-es-modules",
   "version": "0.0.0",
   "homepage": "/",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build-ghpages": "ng build -c production --base-href=\"https://mfcallahan.github.io/angular-cli-esri-map-unit-testing/\" && rimraf ./docs && cp -a ./dist/angular-cli-esri-map ./docs",
     "test": "ng test",
     "test-debug": "ng test --browsers Chrome_test_debug",
     "lint": "ng lint",
