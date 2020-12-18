@@ -8,6 +8,7 @@ import FeatureLayer from '@arcgis/core/layers/FeatureLayer';
 import BasemapToggle from '@arcgis/core/widgets/BasemapToggle';
 import Zoom from '@arcgis/core/widgets/Zoom';
 import Graphic from '@arcgis/core/Graphic';
+
 @Injectable({
   providedIn: 'root',
 })
