@@ -1,5 +1,8 @@
 import { TestBed, inject } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
 import { HttpParams } from '@angular/common/http';
 import { IMapPoint } from 'src/app/interfaces/iMapPoint';
 import { TestBase } from 'src/test/testBase';
@@ -12,7 +15,10 @@ describe('ApiService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: EnvironmentService, useValue: mockEnvironment }, ApiService],
+      providers: [
+        { provide: EnvironmentService, useValue: mockEnvironment },
+        ApiService,
+      ],
       imports: [HttpClientTestingModule],
     });
     service = TestBed.inject(ApiService);
@@ -28,7 +34,10 @@ describe('ApiService', () => {
     (httpMock: HttpTestingController, apiService: ApiService) => {
       // Arrange
       const numPoints = 100;
-      const mockParams = new HttpParams().set('numPoints', numPoints.toString());
+      const mockParams = new HttpParams().set(
+        'numPoints',
+        numPoints.toString()
+      );
       const mockResponse: Array<IMapPoint> = TestBase.getIMapPointArray();
 
       // Act
@@ -37,7 +46,9 @@ describe('ApiService', () => {
       });
 
       // Create a request using the mock HttpClient client, calling the mockUrl with mockParams and mockHeaders.
-      const req = httpMock.expectOne([service.environment.randomPtsPhxUrl, mockParams.toString()].join('?'));
+      const req = httpMock.expectOne(
+        [service.environment.randomPtsPhxUrl, mockParams.toString()].join('?')
+      );
 
       // Assert
       // Expect the request made by the mock HttpClient client to be a GET request.

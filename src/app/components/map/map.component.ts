@@ -1,4 +1,10 @@
-import { Component, AfterViewInit, ViewChild, ElementRef, OnDestroy } from '@angular/core';
+import {
+  Component,
+  AfterViewInit,
+  ViewChild,
+  ElementRef,
+  OnDestroy,
+} from '@angular/core';
 import { MapService } from 'src/app/services/map.service';
 import { EnvironmentService } from 'src/app/services/environment.service';
 
@@ -11,7 +17,10 @@ export class MapComponent implements AfterViewInit, OnDestroy {
   @ViewChild('mapView', { static: false })
   mapElementRef?: ElementRef;
 
-  constructor(readonly environment: EnvironmentService, readonly mapService: MapService) {}
+  constructor(
+    readonly environment: EnvironmentService,
+    readonly mapService: MapService
+  ) {}
 
   ngAfterViewInit(): void {
     this.mapService.initDefaultMap(this.mapElementRef);

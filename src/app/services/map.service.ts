@@ -49,15 +49,24 @@ export class MapService {
   public addAllMapWidgets(): void {
     const basemapToggle = new BasemapToggle({
       view: this.mapView,
-      nextBasemap: this.environment.baseConfigs.defaultMapSettings.widgets.basemapToggle.nextBasemap,
+      nextBasemap:
+        this.environment.baseConfigs.defaultMapSettings.widgets.basemapToggle
+          .nextBasemap,
     });
 
     const zoom = new Zoom({
       view: this.mapView,
     });
 
-    this.mapView?.ui.add(basemapToggle, this.environment.baseConfigs.defaultMapSettings.widgets.basemapToggle.position);
-    this.mapView?.ui.add(zoom, this.environment.baseConfigs.defaultMapSettings.widgets.zoom.position);
+    this.mapView?.ui.add(
+      basemapToggle,
+      this.environment.baseConfigs.defaultMapSettings.widgets.basemapToggle
+        .position
+    );
+    this.mapView?.ui.add(
+      zoom,
+      this.environment.baseConfigs.defaultMapSettings.widgets.zoom.position
+    );
   }
 
   public removeAllPoints(zoomToDefaultExtent: boolean): void {

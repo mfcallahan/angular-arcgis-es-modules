@@ -12,7 +12,10 @@ export class HeaderComponent {
   showSpinner = false;
   dataLoaded = false;
 
-  constructor(readonly apiService: ApiService, readonly mapService: MapService) {}
+  constructor(
+    readonly apiService: ApiService,
+    readonly mapService: MapService
+  ) {}
 
   public async loadDataClick(): Promise<void> {
     this.showSpinner = true;
@@ -22,7 +25,9 @@ export class HeaderComponent {
       this.mapService.removeAllPoints(false);
     }
 
-    const response: Array<IMapPoint> = await this.apiService.getRandomPointsInPhx(numPointsToLoad).toPromise();
+    const response: Array<IMapPoint> = await this.apiService
+      .getRandomPointsInPhx(numPointsToLoad)
+      .toPromise();
 
     await this.mapService.addPointsToMap(response);
 

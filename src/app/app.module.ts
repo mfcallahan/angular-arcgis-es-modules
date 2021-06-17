@@ -10,7 +10,13 @@ import { HeaderComponent } from 'src/app/components/header/header.component';
 
 @NgModule({
   declarations: [AppComponent, MapComponent, HeaderComponent],
-  imports: [BrowserModule, BrowserAnimationsModule, HttpClientModule, FlexLayoutModule, MaterialModule],
+  imports: [
+    BrowserModule,
+    BrowserAnimationsModule,
+    HttpClientModule,
+    FlexLayoutModule,
+    MaterialModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
